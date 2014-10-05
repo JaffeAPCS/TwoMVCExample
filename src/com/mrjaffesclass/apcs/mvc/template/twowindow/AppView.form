@@ -25,10 +25,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="leftPanelView1" min="-2" pref="311" max="-2" attributes="0"/>
+              <Component id="leftPanelView1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="rightPanelView1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -36,26 +36,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="leftPanelView1" max="32767" attributes="0"/>
-                  <Component id="rightPanelView1" pref="355" max="32767" attributes="0"/>
+                  <Component id="rightPanelView1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="mvcmessaging.LeftPanelView" name="leftPanelView1">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-            <BevelBorder/>
-          </Border>
-        </Property>
-      </Properties>
+    <Component class="com.mrjaffesclass.apcs.mvc.template.twowindow.LeftPanelView" name="leftPanelView1">
     </Component>
-    <Component class="mvcmessaging.RightPanelView" name="rightPanelView1">
+    <Component class="com.mrjaffesclass.apcs.mvc.template.twowindow.RightPanelView" name="rightPanelView1">
     </Component>
   </SubComponents>
 </Form>

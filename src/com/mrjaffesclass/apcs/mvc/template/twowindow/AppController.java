@@ -1,6 +1,4 @@
-package mvcmessaging;
-import javax.swing.*;
-import java.util.*;
+package com.mrjaffesclass.apcs.mvc.template.twowindow;
 import com.mrjaffesclass.apcs.messages.*;
 
 /**
@@ -20,12 +18,23 @@ public class AppController {
    * visible flag to true to display the views.
    */
   public AppController() {
-    Messages messages = new Messages();
+    // Create the app messenger class.  There are two sets of messengers -- one
+    // for the application that will handle controller to controller communication
+    // and one for each controller that will handle communication between model
+    // view and controller within one MVC framework.
+    Messaging messages = new Messaging();
+    
+    // Instantiate the view and all the subviews (left and right panels)
     AppView appView = new AppView();
+    
+    // Instantiate the controllers, passing the messenger class and the corresponding view
+    // so the controller can do some initialization.
     LeftPanelController left = new LeftPanelController(messages, appView.getLeftPanelView());
     left.init();
     RightPanelController right = new RightPanelController(messages, appView.getRightPanelView());
     right.init();
+    
+    // Set the view visible
     appView.setVisible(true);
   }
 

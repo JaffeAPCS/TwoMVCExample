@@ -1,45 +1,81 @@
-package mvcmessaging;
+package com.mrjaffesclass.apcs.mvc.template.twowindow;
+
+import com.mrjaffesclass.apcs.messages.*;
 import java.awt.*;
 
 /**
  * This is the view class for the left panel.  The view is designed by
  * the NetBeans GUI interface designed, and so the shaded code should
  * not be changed.
- * @author Roger
+ * @author Roger Jaffe
  * @version 2014-10-02
  */
-public class LeftPanelView extends javax.swing.JPanel {
+public class LeftPanelView extends javax.swing.JPanel implements MessageMailbox {
   
-  private LeftPanelController controller = null;
+  private Messaging messages;
+  private final Color initialColor = new Color(255, 0, 0);  // Red!
   
   /**
-   * Instantiates the LeftPanel view
+   * Instantiates the LeftPanelView
    */
   public LeftPanelView() {
     initComponents();
   }
   
   /**
-   * Sets the a variable for the variable that controls this view
-   * so the view can access it
-   * @param _controller Controller for this view
+   * Set the little color swatch background to the initial color, set 
+   * the text fields to the same initial color, save the messages variable
+   * and subscribe to the view:button message
+   * @param _messages Messaging object
    */
-  public void setController(LeftPanelController _controller) {
-    controller = _controller;
+  public void init(Messaging _messages) {
+    jPanel5.setBackground(initialColor);
+    jTextField1.setText(Integer.toString(initialColor.getRed()));
+    jTextField2.setText(Integer.toString(initialColor.getGreen()));
+    jTextField3.setText(Integer.toString(initialColor.getBlue()));
+    messages = _messages;
+    messages.subscribe("view:button", this);
   }
   
   /**
    * Gets the color numbers from the color fields
-   * @return The color set by the fields
+   * @return The color set by the fields, or null if invalid number(s)
    */
   public Color getColorToSend() {
-    return new Color(
-      Integer.parseInt(jTextField1.getText()), 
-      Integer.parseInt(jTextField2.getText()),
-      Integer.parseInt(jTextField3.getText())
-    );
+    Color color;
+    try {
+      color = new Color(
+        Integer.parseInt(jTextField1.getText()), 
+        Integer.parseInt(jTextField2.getText()),
+        Integer.parseInt(jTextField3.getText()));
+    } catch (IllegalArgumentException e) {
+      color = null;
+    }
+    return color;
   }
   
+  /**
+   * This method is fired whenever a message to which this object is
+   * subscribed is sent.
+   * @param messageName Message that was sent
+   * @param messagePayload A MessagePayload object with the button number and color
+   */
+  @Override
+  public void messageHandler(String messageName, Object messagePayload) {
+    MessagePayload payload = (MessagePayload)messagePayload;
+    switch (payload.getButtonNumber()) {
+      case 1:
+        jPanel1.setBackground(payload.getColor());
+        break;
+      case 2:
+        jPanel2.setBackground(payload.getColor());
+        break;
+      case 3:
+        jPanel3.setBackground(payload.getColor());
+        break;
+    }
+  }
+
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,7 +108,7 @@ public class LeftPanelView extends javax.swing.JPanel {
 
     jLabel2.setText("Left Side");
 
-    jPanel1.setBackground(new java.awt.Color(255, 0, 0));
+    jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
     jLabel3.setText("Msg 1");
     jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -95,7 +131,7 @@ public class LeftPanelView extends javax.swing.JPanel {
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
-    jPanel2.setBackground(new java.awt.Color(255, 0, 0));
+    jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
     jLabel4.setText("Msg 2");
     jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -118,7 +154,7 @@ public class LeftPanelView extends javax.swing.JPanel {
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
-    jPanel3.setBackground(new java.awt.Color(255, 0, 0));
+    jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
     jLabel5.setText("Msg 3");
     jLabel5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -185,25 +221,25 @@ public class LeftPanelView extends javax.swing.JPanel {
 
     jTextField1.setColumns(2);
     jTextField1.setText("255");
-    jTextField1.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jTextField1ActionPerformed(evt);
+    jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        jTextField3KeyReleased(evt);
       }
     });
 
     jTextField2.setColumns(2);
     jTextField2.setText("255");
-    jTextField2.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jTextField2ActionPerformed(evt);
+    jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        jTextField3KeyReleased(evt);
       }
     });
 
     jTextField3.setColumns(2);
     jTextField3.setText("255");
-    jTextField3.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jTextField3ActionPerformed(evt);
+    jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        jTextField3KeyReleased(evt);
       }
     });
 
@@ -302,48 +338,36 @@ public class LeftPanelView extends javax.swing.JPanel {
     );
   }// </editor-fold>//GEN-END:initComponents
 
-  private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_jTextField1ActionPerformed
-
-  private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_jTextField2ActionPerformed
-
-  private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_jTextField3ActionPerformed
-
   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    // TODO add your handling code here:
-    System.out.println("LeftPanelView: Button 1 pressed");
-    controller.buttonPressed(1, getColorToSend());    
+    messages.notify("view:button", new MessagePayload(1, getColorToSend()), true);
   }//GEN-LAST:event_jButton1ActionPerformed
 
   private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    System.out.println("LeftPanelView: Button 2 pressed");
-    controller.buttonPressed(2, getColorToSend());        // TODO add your handling code here:
+    messages.notify("view:button", new MessagePayload(2, getColorToSend()), true);
   }//GEN-LAST:event_jButton2ActionPerformed
 
   private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    System.out.println("LeftPanelView: Button 3 pressed");
-    controller.buttonPressed(3, getColorToSend());        // TODO add your handling code here:
+    messages.notify("view:button", new MessagePayload(3, getColorToSend()), true);
   }//GEN-LAST:event_jButton3ActionPerformed
 
   private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    System.out.println("LeftPanelView: Button 4 pressed");
-    controller.buttonPressed(4, getColorToSend());        // TODO add your handling code here:    // TODO add your handling code here:
+    messages.notify("view:button", new MessagePayload(4, getColorToSend()), true);
   }//GEN-LAST:event_jButton4ActionPerformed
 
   private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-    System.out.println("LeftPanelView: Button 5 pressed");
-    controller.buttonPressed(5, getColorToSend());        // TODO add your handling code here:    // TODO add your handling code here:
+    messages.notify("view:button", new MessagePayload(5, getColorToSend()), true);
   }//GEN-LAST:event_jButton5ActionPerformed
 
   private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-    System.out.println("LeftPanelView: Button 6 pressed");
-    controller.buttonPressed(6, getColorToSend());        // TODO add your handling code here:    // TODO add your handling code here:
+    messages.notify("view:button", new MessagePayload(6, getColorToSend()), true);
   }//GEN-LAST:event_jButton6ActionPerformed
+
+  private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
+    Color newColor = getColorToSend();
+    if (newColor != null) {
+      jPanel5.setBackground(newColor);
+    }    
+  }//GEN-LAST:event_jTextField3KeyReleased
 
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -366,4 +390,5 @@ public class LeftPanelView extends javax.swing.JPanel {
   private javax.swing.JTextField jTextField2;
   private javax.swing.JTextField jTextField3;
   // End of variables declaration//GEN-END:variables
+
 }
