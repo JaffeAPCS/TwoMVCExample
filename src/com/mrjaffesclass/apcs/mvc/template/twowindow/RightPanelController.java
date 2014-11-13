@@ -1,13 +1,13 @@
 package com.mrjaffesclass.apcs.mvc.template.twowindow;
-import com.mrjaffesclass.apcs.messages.*;
+import com.mrjaffesclass.apcs.messenger.*;
 
 /**
  *
  * @author Roger
  */
-public class RightPanelController implements MessageMailbox {
+public class RightPanelController implements MessageHandler {
 
-  private final Messaging messages;
+  private final Messenger messages;
   
   /**
    * Constructor gets passed the view from the appController.
@@ -15,7 +15,7 @@ public class RightPanelController implements MessageMailbox {
    * @param _messages The app's messages class
    * @param _view The view for this controller
    */
-  public RightPanelController(Messaging _messages, RightPanelView _view) {
+  public RightPanelController(Messenger _messages, RightPanelView _view) {
     messages = _messages;
     RightPanelView view = _view;
     view.init(messages);    // Send the message object to the view

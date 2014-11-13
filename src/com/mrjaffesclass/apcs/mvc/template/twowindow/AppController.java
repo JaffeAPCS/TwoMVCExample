@@ -1,5 +1,5 @@
 package com.mrjaffesclass.apcs.mvc.template.twowindow;
-import com.mrjaffesclass.apcs.messages.*;
+import com.mrjaffesclass.apcs.messenger.*;
 
 /**
  * A multiple view app using a simple MVC framework and messaging to 
@@ -22,7 +22,7 @@ public class AppController {
     // for the application that will handle controller to controller communication
     // and one for each controller that will handle communication between model
     // view and controller within one MVC framework.
-    Messaging messages = new Messaging();
+    Messenger messages = new Messenger();
     
     // Instantiate the view and all the subviews (left and right panels)
     AppView appView = new AppView();

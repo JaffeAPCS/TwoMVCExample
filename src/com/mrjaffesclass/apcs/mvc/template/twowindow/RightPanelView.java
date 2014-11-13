@@ -1,6 +1,6 @@
 package com.mrjaffesclass.apcs.mvc.template.twowindow;
 
-import com.mrjaffesclass.apcs.messages.*;
+import com.mrjaffesclass.apcs.messenger.*;
 import java.awt.Color;
 
 /**
@@ -10,9 +10,9 @@ import java.awt.Color;
  * @author Roger
  * @version 2014-10-02
  */
-public class RightPanelView extends javax.swing.JPanel implements MessageMailbox {
+public class RightPanelView extends javax.swing.JPanel implements MessageHandler {
 
-  private Messaging messages;
+  private Messenger messages;
   private final Color initialColor = new Color(0, 255, 0);  // Red!
   
   /**
@@ -28,7 +28,7 @@ public class RightPanelView extends javax.swing.JPanel implements MessageMailbox
    * and subscribe to the view:button message
    * @param _messages Messaging object
    */
-  public void init(Messaging _messages) {
+  public void init(Messenger _messages) {
     jPanel5.setBackground(initialColor);
     jTextField1.setText(Integer.toString(initialColor.getRed()));
     jTextField2.setText(Integer.toString(initialColor.getGreen()));
